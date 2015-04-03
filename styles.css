@@ -2,4 +2,13 @@
 
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
+.playground{
+  width:700px;
+  height:450px;
+}
+/*.enemies{
+  background-image: url('asteroid.png');
 
+  width:100px;
+  height: 100px;
+}*/

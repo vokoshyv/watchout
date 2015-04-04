@@ -86,6 +86,7 @@ d3.select('.playground').selectAll('.enemies')
 
 var enemies = d3.select('.playground').selectAll('.enemies');
 
+var player = d3.select('.playground').selectAll('.player');
 
 function randomLocation(){
 
@@ -99,8 +100,43 @@ function randomLocation(){
     return (Math.random() * (height-50));
   })
 
+
+
 };
 setInterval(randomLocation, 2500);
+
+function collisionChecker(){
+
+  return enemies.each(function(d, index){
+    // debugger
+    if(checkSingleCollision(enemies[0][index])){
+      return true;
+    }
+    return false;
+  });
+
+  // use enemies locations
+  // compare against player location
+  // on intersections use jquery to up the collision counter
+
+}
+
+
+setInterval(collisionChecker, 500);
+
+function checkSingleCollision(cir1){
+
+  var dx = cir1.x.baseVal.value - player[0][0].x.baseVal.value;
+  var dy = cir1.y.baseVal.value - player[0][0].y.baseVal.value;
+  var distance = Math.sqrt(dx * dx + dy * dy);
+
+  if (distance < 40) {
+      // collision detected!
+      console.log("collision");
+      return true;
+  }
+  return false;
+}
 
 // randomLocation();
 // update(alphabet);

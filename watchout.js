@@ -1,7 +1,70 @@
 // start slingin' some d3 here.
-var dataset = [0,1,2,3,4,5,6,7,8,9];
+var dataset = [1,2,3,4,5,6,7,8,9,10];
+
 var width = 700;
 var height = 450;
+var playerPointer = 'm-7.5,1.62413c0,-5.04095 4.08318,-9.12413 9.12414,-9.12413c5.04096,0 9.70345,5.53145 11.87586,9.12413c-2.02759,2.72372 -6.8349,9.12415 -11.87586,9.12415c-5.04096,0 -9.12414,-4.08318 -9.12414,-9.12415z'
+
+
+var svgCircleContainer = d3.select(".playground").append("svg")
+  .attr("width", 200)
+  .attr("height", 200);
+
+var circle = svgCircleContainer.append("circle")
+  .attr("x", 30)
+  .attr("y", 30)
+  .attr("r", 20);
+
+function dragmove(d) {
+    d3.select(this)
+    .transition()
+    .duration(50)
+      .attr("y", function(){
+        minY = 10;
+        maxY = height -35;
+        if (d3.event.y < minY) {
+          return minY;
+        }
+        else if (d3.event.y > maxY){
+          return maxY;
+        }
+        else{
+          return d3.event.y;
+        }
+      })
+      .attr("x", function(){
+        minX = 10;
+        maxX = width -35;
+        if (d3.event.x < minX) {
+          return minX;
+        }
+        else if (d3.event.x > maxX){
+          return maxX;
+        }
+        else{
+          return d3.event.x;
+        }
+      });
+}
+
+var drag = d3.behavior.drag()
+    .on("drag", dragmove);
+
+d3.select('.playground').selectAll('.player')
+  .data([0])
+  .enter()
+  .append('svg')
+  .attr('class', 'player')
+  .attr('fill', '#ff6600')
+  .attr("x", width/2)
+  .attr("y", height/2)
+  .call(drag)
+  .append("circle")
+  .attr("cx", 15)
+  .attr("cy", 15)
+  .attr("r", 15)
+  .attr('fill', '#ff6600');
+
 
 d3.select('.playground').selectAll('.enemies')
   .data(dataset)
@@ -28,6 +91,7 @@ function randomLocation(){
 
   enemies
   .transition()
+  .duration(2500)
   .attr("x", function(d){
     return (Math.random() * (width-50));
   })
@@ -36,7 +100,7 @@ function randomLocation(){
   })
 
 };
-setInterval(randomLocation, 1000);
+setInterval(randomLocation, 2500);
 
 // randomLocation();
 // update(alphabet);

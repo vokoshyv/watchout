@@ -10,9 +10,13 @@ body{
   width:700px;
   height:450px;
   background-color: black;
-  margin:10px;
+  margin:50px;
   /*display: ;*/
 }
 .enemies{
   display: fixed;
+}
+
+.player{
+
 }

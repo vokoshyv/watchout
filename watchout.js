@@ -84,7 +84,16 @@ d3.select('.playground').selectAll('.enemies')
   .append("svg:image")
   .attr("width", 50)
   .attr("height", 50)
-  .attr("xlink:href", "img/asteroid.png");
+  .attr("xlink:href", "img/test.png");
+  // .transition()
+  // .duration(1000)
+  // .attr("transform", function(d){
+  //   return "translate(25,25) rotate(180,25,25) translate(25,25)";
+  // });
+
+// function tween(d, i, a) {
+//   return d3.interpolateString("rotate(-60, 150, 130)", "rotate(60, 150, 130)");
+// }
 
 var enemies = d3.select('.playground').selectAll('.enemies');
 

@@ -47,10 +47,11 @@ function dragmove(d) {
           return d3.event.x;
         }
       });
+      particle();
 }
 
 var drag = d3.behavior.drag()
-    .on("drag", dragmove);
+    .on("drag", dragmove)
 
 d3.select('.playground').selectAll('.player')
   .data([0])
@@ -119,20 +120,7 @@ setInterval(randomLocation, 2500);
 
 
 
-function collisionChecker(){
 
-  return enemies.each(function(d, index){
-    // debugger
-    if(checkSingleCollision(enemies[0][index])){
-      //cause collision counter to increase;
-      collisionCounter++;
-      d3.select('.collisions')
-        .text("Collisions: " + collisionCounter);
-        updateScore();
-    }
-  });
-
-}
 
 
 
@@ -157,6 +145,21 @@ setInterval(function(){
 }, 50);
 setInterval(collisionChecker, 150);
 
+function collisionChecker(){
+
+  return enemies.each(function(d, index){
+     //debugger
+    if(checkSingleCollision(enemies[0][index])){
+      //cause collision counter to increase;
+      collisionCounter++;
+      d3.select('.collisions')
+        .text("Collisions: " + collisionCounter);
+        updateScore();
+    }
+  });
+
+}
+
 
 function checkSingleCollision(cir1){
 
@@ -169,3 +172,23 @@ function checkSingleCollision(cir1){
   }
   return false;
 }
+
+function particle() {
+  var m = d3.mouse(this);
+
+  svg.insert("circle", "rect")
+      .attr("cx", m[0])
+      .attr("cy", m[1])
+      .attr("r", 1e-6)
+      .style("stroke", d3.hsl((i = (i + 1) % 360), 1, .5))
+      .style("stroke-opacity", 1)
+    .transition()
+      .duration(2000)
+      .ease(Math.sqrt)
+      .attr("r", 100)
+      .style("stroke-opacity", 1e-6)
+      .remove();
+
+  d3.event.preventDefault();
+}
+
